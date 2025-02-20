@@ -9,7 +9,7 @@
     <script>
         let humanScore = 0, computerScore = 0;
         
-        while (humanScore < 5 || computerScore < 5) {
+        while (humanScore < 2 && computerScore < 2) {
             let humanChoice = prompt("Rock, Paper, or Scissors?");
             humanChoice = filterHumanChoice(humanChoice);
             console.log(humanChoice);
@@ -20,6 +20,7 @@
             compareChoice(humanChoice,computerChoice);
         }
 
+        checkScore(humanScore,computerScore);
 
         function randomChoice () {
             let numChoice = Math.floor(Math.random() * 3.5);
@@ -59,27 +60,27 @@
             }
             else if(yourChoice === "rock" && compChoice === "paper") {
                 alert("YOU LOSE! Paper beats Rock.");
-                computerChoice++;
+                computerScore++;
             }
             else if(yourChoice === "paper" && compChoice === "scissors") {
                 alert("YOU LOSE! SCISSORS beat PAPER.");
-                computerChoice++;
+                computerScore++;
             }
             else if(yourChoice === "rock" && compChoice === "scissors") {
                 alert("YOU WIN! ROCK beats SCISSORS");
-                humanChoice++;
+                humanScore++;
             }
             else if(compChoice === "rock" && yourChoice === "paper") {
                 alert("YOU WIN! Paper beats Rock.");
-                humanChoice++;
+                humanScore++;
             }
             else if(compChoice === "paper" && yourChoice === "scissors") {
                 alert("YOU WIN! SCISSORS beat PAPER.");
-                humanChoice++;
+                humanScore++;
             }
             else if(compChoice === "rock" && yourChoice === "scissors") {
                 alert("YOU LOSE! ROCK beats SCISSORS");
-                computerChoice++;
+                computerScore++;
             }
             else{
                 alert("Invalid!");

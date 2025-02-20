@@ -7,14 +7,19 @@
 </head>
 <body>
     <script>
-        let humanChoice = prompt("Rock, Paper, or Scissors?");
-        humanChoice = filterHumanChoice(humanChoice);
-        console.log(humanChoice);
+        let humanScore = 0, computerScore = 0;
+        
+        while (humanScore < 5 || computerScore < 5) {
+            let humanChoice = prompt("Rock, Paper, or Scissors?");
+            humanChoice = filterHumanChoice(humanChoice);
+            console.log(humanChoice);
 
-        let computerChoice = changeToString(randomChoice());
-        console.log(computerChoice);
+            let computerChoice = changeToString(randomChoice());
+            console.log(computerChoice);
 
-        compareChoice(humanChoice,computerChoice);
+            compareChoice(humanChoice,computerChoice);
+        }
+
 
         function randomChoice () {
             let numChoice = Math.floor(Math.random() * 3.5);
@@ -48,31 +53,43 @@
             }
         }
 
-        function compareChoice (humanChoice,computerChoice) {
-            if(humanChoice === computerChoice) {
+        function compareChoice (yourChoice,compChoice) {
+            if(yourChoice === compChoice) {
                 alert("DRAW!");
             }
-            else if(humanChoice === "rock" && computerChoice === "paper") {
+            else if(yourChoice === "rock" && compChoice === "paper") {
                 alert("YOU LOSE! Paper beats Rock.");
+                computerChoice++;
             }
-            else if(humanChoice === "paper" && computerChoice === "scissors") {
+            else if(yourChoice === "paper" && compChoice === "scissors") {
                 alert("YOU LOSE! SCISSORS beat PAPER.");
+                computerChoice++;
             }
-            else if(humanChoice === "rock" && computerChoice === "scissors") {
+            else if(yourChoice === "rock" && compChoice === "scissors") {
                 alert("YOU WIN! ROCK beats SCISSORS");
+                humanChoice++;
             }
-            else if(computerChoice === "rock" && humanChoice === "paper") {
+            else if(compChoice === "rock" && yourChoice === "paper") {
                 alert("YOU WIN! Paper beats Rock.");
+                humanChoice++;
             }
-            else if(computerChoice === "paper" && humanChoice === "scissors") {
+            else if(compChoice === "paper" && yourChoice === "scissors") {
                 alert("YOU WIN! SCISSORS beat PAPER.");
+                humanChoice++;
             }
-            else if(computerChoice === "rock" && humanChoice === "scissors") {
+            else if(compChoice === "rock" && yourChoice === "scissors") {
                 alert("YOU LOSE! ROCK beats SCISSORS");
+                computerChoice++;
             }
             else{
                 alert("Invalid!");
-            }
+            } 
+        }
+
+        function checkScore (yourScore, theirScore) {
+            if (yourScore > theirScore) alert("Congratulations! YOU WIN!");
+            else if (theirScore > yourScore) alert("Sorry! You lose :(");
+            else alert("Invalid!");
         }
     </script>
 </body>

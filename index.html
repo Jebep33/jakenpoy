@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let humanChoice = prompt("Rock, Paper, or Scissors?");
+        humanChoice = filterHumanChoice(humanChoice);
+        console.log(humanChoice);
+
+        let computerChoice = changeToString(randomChoice());
+        console.log(computerChoice);
+
+        compareChoice(humanChoice,computerChoice);
+
+        function randomChoice () {
+            let numChoice = Math.floor(Math.random() * 3.5);
+            
+            if (numChoice === 0) numChoice = 1;
+
+            return numChoice;
+        }
+
+        function changeToString(choice) {
+            let strChoice;
+            
+            switch(choice) {
+                case 1: strChoice = "rock"; break;
+                case 2: strChoice = "paper"; break;
+                case 3: strChoice = "scissors"; break;
+                default: alert("Choice Invalid");
+            }
+
+            return strChoice;
+        }
+
+        function filterHumanChoice (choice) {
+            let lowChoice = String(choice).toLowerCase();
+
+            if (lowChoice === "rock" || lowChoice === "paper" || lowChoice === "scissors") {
+                return lowChoice;
+            }
+            else {
+                alert("Please choose one of the following: Rock, Paper, or Scissors");
+            }
+        }
+
+        function compareChoice (humanChoice,computerChoice) {
+            if(humanChoice === computerChoice) {
+                alert("DRAW!");
+            }
+            else if(humanChoice === "rock" && computerChoice === "paper") {
+                alert("YOU LOSE! Paper beats Rock.");
+            }
+            else if(humanChoice === "paper" && computerChoice === "scissors") {
+                alert("YOU LOSE! SCISSORS beat PAPER.");
+            }
+            else if(humanChoice === "rock" && computerChoice === "scissors") {
+                alert("YOU WIN! ROCK beats SCISSORS");
+            }
+            else if(computerChoice === "rock" && humanChoice === "paper") {
+                alert("YOU WIN! Paper beats Rock.");
+            }
+            else if(computerChoice === "paper" && humanChoice === "scissors") {
+                alert("YOU WIN! SCISSORS beat PAPER.");
+            }
+            else if(computerChoice === "rock" && humanChoice === "scissors") {
+                alert("YOU LOSE! ROCK beats SCISSORS");
+            }
+            else{
+                alert("Invalid!");
+            }
+        }
+    </script>
+</body>
+</html>

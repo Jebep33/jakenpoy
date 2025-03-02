@@ -17,17 +17,20 @@
         let buttonChoice = document.querySelectorAll("button");
         let humanChoice = "";
         let computerChoice = "";
+        let roundNumber = 1;
 
-
+        
         buttonChoice.forEach(button => {
-            button.addEventListener("click", () => {
-                computerChoice = getComputerChoice();
-                console.log(button);
-                humanChoice = button.id;
-                displayResult();
-                checkScore(humanScore,computerScore);
+                button.addEventListener("click", () => {
+                    humanChoice = button.id;
+                    computerChoice = getComputerChoice();
+                    displayResult();
+                    roundNumber++;
+                    checkScore(humanScore,computerScore);
+                });
             });
-        });
+
+            
 
         function getComputerChoice() {
             let computerChoice = Math.floor(Math.random() * 3) + 1;
@@ -43,58 +46,81 @@
             return strChoice;
         }
 
-        function compareChoice (yourChoice,compChoice) {
-            
+        function compareChoice(yourChoice,compChoice){      
+            let result = "";
             
             if(yourChoice === compChoice) {
-                return "Its a DRAW!";
+                result = "Its a DRAW!";
             }
             else if(yourChoice === "rock" && compChoice === "paper") {
                 computerScore++;
-                return `YOU LOST - ${compChoice} beats ${yourChoice}!`;
+                result = `YOU LOST - ${compChoice} beats ${yourChoice}!`;
             }
             else if(yourChoice === "paper" && compChoice === "scissors") {
                 computerScore++;
-                return `YOU LOST - ${compChoice} beat ${yourChoice}!`;
+                result = `YOU LOST - ${compChoice} beat ${yourChoice}!`;
             }
             else if(yourChoice === "rock" && compChoice === "scissors") {
                 humanScore++;
-                return `YOU WIN - ${yourChoice} beats ${compChoice}!`;
+                result = `YOU WIN - ${yourChoice} beats ${compChoice}!`;
             }
             else if(compChoice === "rock" && yourChoice === "paper") {
                 humanScore++;
-                return `YOU WIN - ${yourChoice} beats ${compChoice}!`;
+                result = `YOU WIN - ${yourChoice} beats ${compChoice}!`;
             }
             else if(compChoice === "paper" && yourChoice === "scissors") {
                 humanScore++;
-                return `YOU WIN - ${yourChoice} beat ${compChoice}!`;
+                result = `YOU WIN - ${yourChoice} beat ${compChoice}!`;
             }
             else if(compChoice === "rock" && yourChoice === "scissors") {
                 computerScore++;
-                return `YOU LOSE - ${yourChoice} beats ${compChoice}!`;
+                result = `YOU LOST - ${yourChoice} beats ${compChoice}!`;
             }
             else{
                 alert("Invalid!");
             } 
+
+            return result += `\tYour Score: ${humanScore} \tComputer Score: ${computerScore}`;
         }
 
         function checkScore (yourScore, theirScore) {
-            if (yourScore )
-            else if (yourScore > theirScore) alert("Congratulations! YOU WIN!");
-            else if (theirScore > yourScore) alert("Sorry! You lose :(");
-            else alert("Invalid!");
+            if(yourScore === 5 || theirScore === 5){
+                if (yourScore > theirScore) alert("Congratulations! YOU WIN!");
+                else if (theirScore > yourScore) alert("Sorry! You lose :(");
+                reset();
+            }
+        }
+
+        function reset(){
+            humanScore = 0;
+            computerScore = 0;
+            roundNumber = 1;
         }
 
         function displayResult() {
             let results = document.querySelector("#results");
+            let children = document.querySelectorAll(".resultsChild");
+
+            //clear the previous results before displaying a new one
+            while(results.hasChildNodes()){
+                results.removeChild(document.querySelector(".resultsChild"));
+            }
 
             let playerChoiceText = document.createElement("p");
             playerChoiceText.textContent = "You chose " + humanChoice + ".";
+            playerChoiceText.className = "resultsChild";
             let compChoiceText = document.createElement("p");
             compChoiceText.textContent = "The computer chose " + computerChoice + ".";
+            compChoiceText.className = "resultsChild";
             let resultsText = document.createElement("p");
             resultsText.textContent = compareChoice(humanChoice,computerChoice);
+            resultsText.className = "resultsChild";
+            let roundNumberText = document.createElement("strong");
+            roundNumberText.textContent = `ROUND NUMBER ${roundNumber}`;
+            roundNumberText.className = "resultsChild";
 
+
+            results.appendChild(roundNumberText);
             results.appendChild(playerChoiceText);
             results.appendChild(compChoiceText);
             results.appendChild(resultsText);

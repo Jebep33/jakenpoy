@@ -6,34 +6,37 @@
     <title>Document</title>
 </head>
 <body>
+    <div class="buttons">
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+    </div>
     <script>
         let humanScore = 0, computerScore = 0;
+        let buttonChoice = document.querySelectorAll("button");
+        let humanChoice = "";
+        let computerChoice = changeToString(randomChoice());
+
+        buttonChoice.forEach(button => {
+            button.addEventListener("click", () => {
+                console.log(button);
+                humanChoice = button.id;
+                compareChoice(humanChoice,computerChoice);
+            });
+        });
         
-        while (humanScore < 5 && computerScore < 5) {
-            let humanChoice = prompt("Rock, Paper, or Scissors?");
-            humanChoice = filterHumanChoice(humanChoice);
-            console.log(humanChoice);
+        /*console.log(humanChoice);
 
-            let computerChoice = changeToString(randomChoice());
-            console.log(computerChoice);
+        
 
-            compareChoice(humanChoice,computerChoice);
-        }
 
-        checkScore(humanScore,computerScore);
+        checkScore(humanScore,computerScore);*/
 
-        function randomChoice () {
-            let numChoice = Math.floor(Math.random() * 3.5);
-            
-            if (numChoice === 0) numChoice = 1;
-
-            return numChoice;
-        }
-
-        function changeToString(choice) {
+        function getComputerChoice() {
+            let computerChoice = Math.floor(Math.random() * 3) + 1;
             let strChoice;
             
-            switch(choice) {
+            switch(computerChoicehoice) {
                 case 1: strChoice = "rock"; break;
                 case 2: strChoice = "paper"; break;
                 case 3: strChoice = "scissors"; break;
@@ -44,9 +47,8 @@
         }
 
         function filterHumanChoice (choice) {
-            let lowChoice = String(choice).toLowerCase();
 
-            if (lowChoice === "rock" || lowChoice === "paper" || lowChoice === "scissors") {
+            if (choice === "rock" || choice === "paper" || choice === "scissors") {
                 return lowChoice;
             }
             else {
